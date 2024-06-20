@@ -63,24 +63,42 @@ namespace Test_Driven_Development
                 {
                     Console.WriteLine(reader.GetString(0));
                 }
+                else 
+                {
+                    Console.WriteLine($"no product found with id {productID}");
+                }
             }
             catch (Exception)
             {
-                Console.WriteLine("");
+                Console.WriteLine("nuh uh");
             }
 
         }
         public static void GetSupplier(int supplierID)
-        {            
-            using var connection = new MySqlConnection(connStr);
-            connection.Open();
-            using var command = new MySqlCommand("SELECT supplierName FROM suppliers WHERE supplierID = @supplierID;", connection);
-            command.Parameters.AddWithValue("@supplierID", supplierID);
-            using var reader = command.ExecuteReader();
-            if (reader.Read())
+        {
+            try
             {
-                Console.WriteLine(reader.GetString(0));
+                using var connection = new MySqlConnection(connStr);
+                connection.Open();
+                using var command = new MySqlCommand("SELECT supplierName FROM suppliers WHERE supplierID = @supplierID;", connection);
+                command.Parameters.AddWithValue("@supplierID", supplierID);
+                using var reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    Console.WriteLine(reader.GetString(0));
+                }
+                else
+                {
+                    Console.WriteLine($"no supplier found with id {supplierID}");
+                }
             }
+            catch (Exception)
+            {
+                Console.WriteLine("nuh uh");
+            }
+
         }
     }
 }
+
+
